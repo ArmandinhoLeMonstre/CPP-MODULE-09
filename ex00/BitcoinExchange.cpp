@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:08 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/16 17:21:54 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:26:27 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int setData(std::map<std::string, float> &data) {
 
-	data["Alo"] = 12;
 	std::ifstream ifs;
 
 	ifs.open ("data.csv");
@@ -28,15 +27,29 @@ int setData(std::map<std::string, float> &data) {
 
 	std::string content;
 	std::string test;
+	std::string date;
+	std::string value_str;
+	float value;
 	content = oss.str();
 	size_t found;
 	size_t found2;
+	size_t found3;
 	found = content.find(",");
-	found2 = content.find(',', found + 1);
-	std::cout << "Found 1 : " << found << "Found 2 : " << found2 <<std::endl;
+	found2 = content.find('\n', found + 1);
 	test.assign(content, 0, found2);
-	//std::cout << content << std::endl;
-	std::cout << test << std::endl;
+	content.erase(0, found2 + 1);
+	while (found2 != std::string::npos) {
+
+		found = content.find(",");
+		found2 = content.find('\n', found + 1);
+		test.assign(content, 0, found2);
+		found3 = test.find(',');
+		date.assign(test, 0, found3);
+		value_str.assign(test, found3 + 1, found2);
+		value = std::atof(value_str.c_str());
+		data[date] = value;
+		content.erase(0, found2 + 1);
+	}
 
 	ifs.close();
 
