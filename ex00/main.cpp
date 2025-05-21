@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:12 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/21 13:28:30 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:11:14 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	main(int ac, char **av)
 	if (!av[4])
 		return (0);
 	std::map<std::string, float> data;
+	data["alo"] = 12;
 	if (ac == 2)
 	{
 		setData(data);
-		std::map<std::string, float>::iterator it;
-		for (it = data.begin(); it != data.end(); it++){
+		std::map<std::string, float>::iterator it = data.begin();
+		while (it != data.end()){
 			
 			std::cout << it->first << " " << it->second << std::endl;
+			it++;
 		}
 	}
 	else
