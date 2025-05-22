@@ -1,4 +1,4 @@
-NAME = RPN
+NAME = PmergeMe
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address -g
 
@@ -10,9 +10,9 @@ OBJS = $(SRCS:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "\033[0;33m\nCOMPILING RPN...\n"
+	@echo "\033[0;33m\nCOMPILING PmergeMe...\n"
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "\033[1;32m./RPN created\n"
+	@echo "\033[1;32m./PmergeMe created\n"
 
 %.o: %.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
