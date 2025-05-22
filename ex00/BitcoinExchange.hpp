@@ -17,6 +17,9 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <string>
 #include <iomanip>
 
 int setData(std::map<std::string, float> &data);
+int check_date(std::string date);
+int check_value(std::string value);
