@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:12 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/21 14:11:14 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:55:22 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,45 +77,46 @@ int displayBitcoins(char *av, std::map<std::string, float> &data) {
 		return (1);
 	content.erase(0, 13);
 	while (!content.empty()) {
-    found2 = content.find('\n');
-    line = content.substr(0, found2);
-    content.erase(0, found2 == std::string::npos ? content.size() : found2 + 1);
+        
+        found2 = content.find('\n');
+        line = content.substr(0, found2);
+        content.erase(0, found2 == std::string::npos ? content.size() : found2 + 1);
 
-    std::size_t pipe_pos = line.find('|');
-    if (pipe_pos == std::string::npos || pipe_pos < 10 || line.length() <= pipe_pos + 2) {
-        std::cout << "Error: bad input => " << line << std::endl;
-        continue;
-    }
+        std::size_t pipe_pos = line.find('|');
+        if (pipe_pos == std::string::npos || pipe_pos < 10 || line.length() <= pipe_pos + 2) {
+            std::cout << "Error: bad input => " << line << std::endl;
+            continue;
+        }
 
-    std::string date = line.substr(0, pipe_pos - 1);
-    std::string value_str = line.substr(pipe_pos + 2);
-    double value = std::atof(value_str.c_str());
+        std::string date = line.substr(0, pipe_pos - 1);
+        std::string value_str = line.substr(pipe_pos + 2);
+        double value = std::atof(value_str.c_str());
 
-    if (check_date(date) || !is_valid_date(date)) {
-        std::cout << "Error: bad input => " << date << std::endl;
-        continue;
-    }
-    if (check_value(value_str)) {
-        std::cout << "Error: bad value => " << value_str << std::endl;
-        continue;
-    }
-    if (value < 0.0) {
-        std::cout << "Error: not a positive number." << std::endl;
-        continue;
-    }
-    if (value > 1000.0) {
-        std::cout << "Error: too large a number." << std::endl;
-        continue;
-    }
+        if (check_date(date) || !is_valid_date(date)) {
+            std::cout << "Error: bad input => " << date << std::endl;
+            continue;
+        }
+        if (check_value(value_str)) {
+            std::cout << "Error: bad value => " << value_str << std::endl;
+            continue;
+        }
+        if (value < 0.0) {
+            std::cout << "Error: not a positive number." << std::endl;
+            continue;
+        }
+        if (value > 1000.0) {
+            std::cout << "Error: too large a number." << std::endl;
+            continue;
+        }
 
-    float rate = getRateForDate(date, data);
-    if (rate < 0.0f) {
-        std::cout << "Error: no available data before " << date << std::endl;
-        continue;
-    }
+        float rate = getRateForDate(date, data);
+        if (rate < 0.0f) {
+            std::cout << "Error: no available data before " << date << std::endl;
+            continue;
+        }
 
-    std::cout << date << " => " << value << " = " << (value * rate) << std::endl;
-}
+        std::cout << date << " => " << value << " = " << (value * rate) << std::endl;
+    }
 
 	ifs.close();
 

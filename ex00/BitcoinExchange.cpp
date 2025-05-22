@@ -6,19 +6,30 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:08 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/21 18:03:28 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:04:45 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
 float getRateForDate(const std::string& date, const std::map<std::string, float>& data) {
-    std::map<std::string, float>::const_iterator it = data.lower_bound(date);
-    if (it != data.end() && it->first == date)
-        return it->second;
-    if (it == data.begin())
-        return -1.0f;
-    --it;
+    std::map<std::string, float>::const_iterator it = data.begin();
+	while (it != data.end()) {
+		
+		if (it->first == date) {
+
+			if (it == data.begin())
+				return -1.0f;
+			return it->second;
+		}
+		if (it->first > date) {
+			
+			it--;
+			return it->second;
+		}
+		it++;
+	}
+	it--;
     return it->second;
 }
 
