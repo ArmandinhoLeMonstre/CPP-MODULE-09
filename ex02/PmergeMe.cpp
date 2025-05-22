@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:44:03 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/22 16:44:04 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:37:25 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void parseInput(int ac, char** av, std::vector<int>& vec, std::deque<int>& deq) 
         std::string arg = av[i];
         for (size_t j = 0; j < arg.length(); ++j) {
             if (!isdigit(arg[j])) {
-                std::cerr << "Error" << std::endl;
+                std::cerr << "Error: non numeric" << std::endl;
                 exit(1);
             }
         }
         int val = std::atoi(arg.c_str());
         if (val < 0) {
-            std::cerr << "Error" << std::endl;
+            std::cerr << "Error: invalid int" << std::endl;
             exit(1);
         }
         vec.push_back(val);
