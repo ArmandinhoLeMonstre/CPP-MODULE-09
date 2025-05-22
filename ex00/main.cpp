@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:12 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/22 16:55:22 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:14:59 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int displayBitcoins(char *av, std::map<std::string, float> &data) {
 
         float rate = getRateForDate(date, data);
         if (rate < 0.0f) {
-            std::cout << "Error: no available data before " << date << std::endl;
+            std::cout << "Error: no available data for :" << date << std::endl;
             continue;
         }
 

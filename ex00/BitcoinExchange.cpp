@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:08 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/22 17:04:45 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:14:26 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 float getRateForDate(const std::string& date, const std::map<std::string, float>& data) {
     std::map<std::string, float>::const_iterator it = data.begin();
+	if (date < it->first)
+		return -1.0f;
 	while (it != data.end()) {
 		
 		if (it->first == date) {
@@ -78,7 +80,7 @@ int setData(std::map<std::string, float> &data) {
 	ifs.open ("data.csv");
 
 	if (!ifs.is_open()) {
-		std::cerr << "Erreur : impossible d'ouvrir le fichier." << std::endl;
+		std::cerr << "Error: could not open file." << std::endl;
 		return (1);
 	}
 	std::ostringstream oss;
