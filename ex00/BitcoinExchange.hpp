@@ -23,3 +23,4 @@
 int setData(std::map<std::string, float> &data);
 int check_date(std::string date);
 int check_value(std::string value);
+float getRateForDate(const std::string& date, const std::map<std::string, float>& data);

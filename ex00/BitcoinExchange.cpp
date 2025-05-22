@@ -12,6 +12,16 @@
 
 #include "BitcoinExchange.hpp"
 
+float getRateForDate(const std::string& date, const std::map<std::string, float>& data) {
+    std::map<std::string, float>::const_iterator it = data.lower_bound(date);
+    if (it != data.end() && it->first == date)
+        return it->second;
+    if (it == data.begin())
+        return -1.0f;
+    --it;
+    return it->second;
+}
+
 int check_value(std::string value) {
 
 	size_t i = 0;
@@ -95,11 +105,7 @@ int setData(std::map<std::string, float> &data) {
 			std::cout << "Error value in the data file" << std::endl;
 			return (1);
 		}
-		//std::cout << value_str << std::endl;
 		value = std::atof(value_str.c_str());
-		// if (value >= 1000.f || value < 0.f)
-		// 	return (1);
-		//std::cout << std::fixed << std::setprecision(10) << "la vue stdcout : " << value << std::endl;
 		data[date] = value;
 		content.erase(0, found2 + 1);
 	}
