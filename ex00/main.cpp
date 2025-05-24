@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:13:12 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/22 17:14:59 by armitite         ###   ########.fr       */
+/*   Updated: 2025/05/24 13:15:05 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ int	main(int ac, char **av)
 	std::map<std::string, float> data;
 	if (ac == 2)
 	{
-		setData(data);
+		if (setData(data) == 1)
+            return (1);
 		displayBitcoins(av[1], data);
 	}
 	else
