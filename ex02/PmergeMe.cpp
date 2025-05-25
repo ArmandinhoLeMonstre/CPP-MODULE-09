@@ -40,7 +40,8 @@ void mergeInsertSortVector(std::vector<int>& vec) {
     std::vector<int> pending;
     for (size_t i = 0; i + 1 < vec.size(); i += 2) {
         int a = vec[i], b = vec[i + 1];
-        if (a < b) std::swap(a, b);
+        if (a < b) 
+			std::swap(a, b);
         mainChain.push_back(a);
         pending.push_back(b);
     }
@@ -51,8 +52,7 @@ void mergeInsertSortVector(std::vector<int>& vec) {
 
     for (size_t i = 0; i < pending.size(); ++i) {
         int val = pending[i];
-        std::vector<int>::iterator it =
-            std::lower_bound(mainChain.begin(), mainChain.end(), val);
+        std::vector<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), val);
         mainChain.insert(it, val);
     }
 
@@ -67,7 +67,8 @@ void mergeInsertSortDeque(std::deque<int>& deq) {
     std::deque<int> pending;
     for (size_t i = 0; i + 1 < deq.size(); i += 2) {
         int a = deq[i], b = deq[i + 1];
-        if (a < b) std::swap(a, b);
+        if (a < b) 
+			std::swap(a, b);
         mainChain.push_back(a);
         pending.push_back(b);
     }
@@ -78,8 +79,7 @@ void mergeInsertSortDeque(std::deque<int>& deq) {
 
     for (size_t i = 0; i < pending.size(); ++i) {
         int val = pending[i];
-        std::deque<int>::iterator it =
-            std::lower_bound(mainChain.begin(), mainChain.end(), val);
+        std::deque<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), val);
         mainChain.insert(it, val);
     }
 
