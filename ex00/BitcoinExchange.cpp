@@ -19,9 +19,6 @@ float getRateForDate(const std::string& date, const std::map<std::string, float>
 	while (it != data.end()) {
 		
 		if (it->first == date) {
-
-			if (it == data.begin())
-				return -1.0f;
 			return it->second;
 		}
 		if (it->first > date) {

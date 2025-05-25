@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 16:44:03 by armitite          #+#    #+#             */
-/*   Updated: 2025/05/22 17:37:25 by armitite         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "PmergeMe.hpp"
 
 void printContainer(const std::string& msg, const std::vector<int>& vec) {
@@ -30,13 +18,13 @@ void parseInput(int ac, char** av, std::vector<int>& vec, std::deque<int>& deq) 
         std::string arg = av[i];
         for (size_t j = 0; j < arg.length(); ++j) {
             if (!isdigit(arg[j])) {
-                std::cerr << "Error: non numeric" << std::endl;
+                std::cerr << "Error" << std::endl;
                 exit(1);
             }
         }
         int val = std::atoi(arg.c_str());
         if (val < 0) {
-            std::cerr << "Error: invalid int" << std::endl;
+            std::cerr << "Error" << std::endl;
             exit(1);
         }
         vec.push_back(val);
@@ -50,34 +38,21 @@ void mergeInsertSortVector(std::vector<int>& vec) {
 
     std::vector<int> mainChain;
     std::vector<int> pending;
-
-    for (size_t i = 0; i < vec.size(); i += 2) {
-        if (i + 1 < vec.size()) {
-            int a = vec[i];
-            int b = vec[i + 1];
-            if (a < b) std::swap(a, b);
-            mainChain.push_back(a);
-            pending.push_back(b);
-        } else {
-            mainChain.push_back(vec[i]);
-        }
+    for (size_t i = 0; i + 1 < vec.size(); i += 2) {
+        int a = vec[i], b = vec[i + 1];
+        if (a < b) std::swap(a, b);
+        mainChain.push_back(a);
+        pending.push_back(b);
     }
+    if (vec.size() % 2 == 1)
+        mainChain.push_back(vec.back());
 
-    for (size_t i = 1; i < mainChain.size(); ++i) {
-        int key = mainChain[i];
-        int j = i - 1;
-        while (j >= 0 && mainChain[j] > key) {
-            mainChain[j + 1] = mainChain[j];
-            --j;
-        }
-        mainChain[j + 1] = key;
-    }
+    mergeInsertSortVector(mainChain);
 
     for (size_t i = 0; i < pending.size(); ++i) {
         int val = pending[i];
-        std::vector<int>::iterator it = mainChain.begin();
-        while (it != mainChain.end() && *it < val)
-            ++it;
+        std::vector<int>::iterator it =
+            std::lower_bound(mainChain.begin(), mainChain.end(), val);
         mainChain.insert(it, val);
     }
 
@@ -90,34 +65,21 @@ void mergeInsertSortDeque(std::deque<int>& deq) {
 
     std::deque<int> mainChain;
     std::deque<int> pending;
-
-    for (size_t i = 0; i < deq.size(); i += 2) {
-        if (i + 1 < deq.size()) {
-            int a = deq[i];
-            int b = deq[i + 1];
-            if (a < b) std::swap(a, b);
-            mainChain.push_back(a);
-            pending.push_back(b);
-        } else {
-            mainChain.push_back(deq[i]);
-        }
+    for (size_t i = 0; i + 1 < deq.size(); i += 2) {
+        int a = deq[i], b = deq[i + 1];
+        if (a < b) std::swap(a, b);
+        mainChain.push_back(a);
+        pending.push_back(b);
     }
+    if (deq.size() % 2 == 1)
+        mainChain.push_back(deq.back());
 
-    for (size_t i = 1; i < mainChain.size(); ++i) {
-        int key = mainChain[i];
-        int j = i - 1;
-        while (j >= 0 && mainChain[j] > key) {
-            mainChain[j + 1] = mainChain[j];
-            --j;
-        }
-        mainChain[j + 1] = key;
-    }
+    mergeInsertSortDeque(mainChain);
 
     for (size_t i = 0; i < pending.size(); ++i) {
         int val = pending[i];
-        std::deque<int>::iterator it = mainChain.begin();
-        while (it != mainChain.end() && *it < val)
-            ++it;
+        std::deque<int>::iterator it =
+            std::lower_bound(mainChain.begin(), mainChain.end(), val);
         mainChain.insert(it, val);
     }
 
@@ -131,4 +93,3 @@ void sortVector(std::vector<int>& vec) {
 void sortDeque(std::deque<int>& deq) {
     mergeInsertSortDeque(deq);
 }
-

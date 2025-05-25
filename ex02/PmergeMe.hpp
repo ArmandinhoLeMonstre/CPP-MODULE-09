@@ -19,6 +19,7 @@
 #include <sstream>
 #include <sys/time.h>
 #include <cstdlib>
+#include <algorithm>
 
 void parseInput(int ac, char** av, std::vector<int>& vec, std::deque<int>& deq);
 void sortVector(std::vector<int>& vec);
