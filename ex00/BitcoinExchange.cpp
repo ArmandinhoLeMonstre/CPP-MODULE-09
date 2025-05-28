@@ -92,6 +92,8 @@ int setData(std::map<std::string, float> &data) {
 
 	size_t found, found2, found3;
 	found2 = content.find("2009-01-02");
+	if (found2 == std::string::npos)
+		return (1);
 	content.erase(0, found2);
 	while (!content.empty()) {
 

@@ -74,7 +74,10 @@ int displayBitcoins(char *av, std::map<std::string, float> &data) {
 
 	size_t found2 = content.find("date | value");
 	if (found2 == std::string::npos)
+	{
+		std::cout << "the input should start with \"date | value\"" << std::endl;
 		return (1);
+	}
 	content.erase(0, 13);
 	while (!content.empty()) {
         
@@ -132,7 +135,8 @@ int	main(int ac, char **av)
 	{
 		if (setData(data) == 1)
             return (1);
-		displayBitcoins(av[1], data);
+		if (displayBitcoins(av[1], data) == 1)
+			return (1);
 	}
 	else
 		std::cout << "Must have 2 arguments" << std::endl;
